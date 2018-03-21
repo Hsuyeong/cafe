@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+	<!-- package를 매번 써주기 힘들고 나중에 수정하게 된다면 굉장히 피곤하니깐 -->
+	<typeAliases>
+		<typeAlias type="com.community.cafe.vo.CommunityCafeVO" alias="CommunityCafeVO" />
+		<typeAlias type="com.community.member.vo.CommunityMemberVO" alias="CommunityMemberVO" />
+	</typeAliases>
+
+	<!-- package마다 mapper파일 하나를 만들어주면된다. -->
+	<mappers>
+		<mapper resource="com/community/member/dao/sql/communityMemberDao.xml"/>
+	</mappers>
+
+</configuration>

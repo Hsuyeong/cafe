@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace에는 interface의 이름을 적어준다 -->
+<mapper namespace="CommunityMemberDao">
+
+	<resultMap type="CommunityMemberVO" id="CommunityMemberVOMap">
+		<id column="MEMBER_ID" property="memberId" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PASSWORD" property="userPassword" />
+		<result column="USER_NICKNAME" property="userNickname" />
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+		<result column="USER_LEVEL" property="userLevel" />
+	</resultMap>
+	
+	
+	<select id="selectCommunityMember" parameterType="CommunityMemberVO"
+		resultMap="CommunityMemberVOMap">
+		SELECT MEMBER_ID memberId
+		, USER_ID userId
+		, USER_PASSWORD		userPassword
+		, USER_NICKNAME userNickname
+		, USER_LEVEL userLevel
+		FROM CAFE_USER
+		WHERE USER_ID = #{userId}
+		AND
+		USER_PASSWORD = #{userPassword}
+	</select>
+	
+	
+	<insert id="insertCommunityMember" parameterType="CommunityMemberVO">
+		INSERT INTO
+		CAFE_USER (
+		MEMBER_ID
+		, USER_ID
+		, USER_PASSWORD
+		, USER_NICKNAME
+		, PHONE_NUMBER
+		, USER_LEVEL
+		)
+		VALUES (
+		CAFE_ID_SEQ.NEXTVAL
+		, #{userId}
+		, #{userPassword}
+		, #{userNickname}
+		, #{phoneNumber}
+		, 0
+		)
+	</insert>
+
+
+	<!-- <update id="updateCummunityMember" parameterType="CommunityMemberVO">
+		UPDATE CAFE_USER
+		SET 
+		<if test="userPassword != null and userPassword != ''">
+			, USER_PASSWORD = #{userPassword}
+		</if>
+		<if test="userNickname != null and userNickname != ''">
+			, USER_NICHNAME = #{userNickname}
+		</if>
+		<if test="phoneNumber != null and phoneNumber != ''">
+			, PHONE_NUMBER = #{phoneNumber}
+		</if>
+		WHERE MEMBER_ID = #{id}
+	</update>  -->
+
+	<update id="deleteCummunityMember" parameterType="_int">
+		UPDATE CAFE_USER
+		SET ID_DEL = 'Y'		
+		WHERE MEMBER_ID = #{id}
+	</update>
+
+
+</mapper>
